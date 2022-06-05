@@ -50,7 +50,7 @@
 
 Остальное, по степени понимания  
 
-| ![add_resources](images/add_resources.JPG) |
+| ![add_resources](images/add_resources.jpg) |
 |:--:|
 | *Добавление ресурсов* |
 
