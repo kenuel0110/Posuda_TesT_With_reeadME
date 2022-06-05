@@ -1,0 +1,53 @@
+﻿<Page x:Class="ArtemNikita.Pages.Page_login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ArtemNikita.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_login" Background="White">
+
+    
+    <Grid>
+        <!--разметка сетки, делаем две строки одна высотой 60, вторая до конца страницы-->
+        <!--Контейнер это объект который в себе содержит другие элементы,
+        он состоит из двух частей открывающей и закрывающей, но можно обойтись и одним,
+        в случае если он не должен в себе что-либо содержаить, например RowDefinition,
+        его можно закрыть "/" проставленой в конце-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--делаем ещё одну сетку и добавляем её в строку размером 60, она первая, поэтому 0, 
+        background это фон-->
+        <Grid Grid.Row="0" Background="#92d050">
+            <!--если картинка не отображаеться в панели со всеми файлами выбираем картинку и 
+            "действие при сборке" выбираем ресурс
+            и путь в source прописываем с "/", если и это не сработает, пробуйте
+            pack://aplication:,,,/Resources/logo.png
+            это прямой путь к файлу-->
+            <!--Vertcal и Horizontalaligment это выравнивание-->
+            <Image Source="/Resources/logo.png" Height="45" Width="45" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <!--Stackpanel Это сетка, но без ячеек, тобишь строк и колон, объекты в нём ставяться по порядку "прописи"-->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!--Textblock это надпись, style стиль(шрифты, размеры и т.п.),
+            margin это отступ от других объектов,
+            Text - текст-->
+            <TextBlock Style="{StaticResource main_text_block}" Margin="5" Text="Логин"/>
+            <!--Textbox - поле вода, maxLenght максимальное количество символов,
+            Name - это имя объекта, благодаря, которому мы можем к нему обращаться-->
+            <TextBox MaxLength="32" MinWidth="320" Margin="5" Name="tb_login"/>
+            <TextBlock Style="{StaticResource main_text_block}" Margin="5" Text="Пароль"/>
+            <!--Passwordbox - это текстого поле для паролей-->
+            <PasswordBox MaxLength="32" MinWidth="320" Margin="5" Name="tb_password"/>
+            <!-- Button - кнопка, здесь margin для каждой стороны свой
+            Click - событие для обработки нажатия, его можно найти в свойствах справа в
+            панели свойств, если нажать на иконку молнии рядом с гаесным ключом-->
+            <Button Style="{StaticResource main_button}" Margin="5 45 5 20" Name="btn_login" Content="Войти" Click="btn_login_Click"/>
+            <!-- здесь есть обработчик MouseLeftButtonDown, аналог click только для надписи-->
+            <TextBlock Name="btn_login_guest" Style="{StaticResource main_text_block}" Margin="5" Text="Войти как гость" HorizontalAlignment="Center" MouseLeftButtonDown="btn_login_guest_MouseLeftButtonDown" />
+        </StackPanel>
+    </Grid>
+</Page>

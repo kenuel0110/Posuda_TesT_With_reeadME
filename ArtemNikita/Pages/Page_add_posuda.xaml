@@ -1,0 +1,77 @@
+﻿<Page x:Class="ArtemNikita.Pages.Page_add_posuda"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ArtemNikita.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_add_posuda" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#92d050">
+
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+            <!--Здесь внутри кнопки мы добавили картинку, чтобы можно было отобразить, то что выбрал пользователь-->
+                <Button Name="btn_changePhoto" Grid.Column="0" Margin="8" Style="{StaticResource add_button}" Click="btn_changePhoto_Click">
+                    <Image Margin="8" Name="image_changePhoto" Source="/Resources/picture.png"/>
+                </Button>
+            <!--ScrollViewer тоже самое как и в окне элемента, добавляет ползунок-->
+                <ScrollViewer Grid.Column="1" Margin="8" VerticalScrollBarVisibility="Auto">
+                <StackPanel CanVerticallyScroll="True">
+                            <StackPanel>
+                                <TextBlock Text="Название продукта" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                <TextBox Name="tb_name" HorizontalAlignment="Center" MinWidth="320" MaxLength="32"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Артикул" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                <TextBox Name="tb_articul" HorizontalAlignment="Center" MinWidth="320" MaxLength="32"/>
+                    </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Описание продукта" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                <TextBox Name="tb_description" TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Center" MinWidth="320" MaxLength="128" MaxLines="3" MinLines="3"/>
+                    </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Цена" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                <TextBox Name="tb_cost" HorizontalAlignment="Center" MinWidth="320" MaxLength="6" PreviewTextInput="tb_cost_PreviewTextInput"/>
+                    </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Количество на складе" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                <TextBox Name="tb_inStock" HorizontalAlignment="Center" MinWidth="320" MaxLength="3" PreviewTextInput="tb_inStock_PreviewTextInput"/>
+                            </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Скидка" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                        <TextBox Name="tb_discount" HorizontalAlignment="Center" MinWidth="320" MaxLength="3" PreviewTextInput="tb_discount_PreviewTextInput"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Категория продукта" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                        <ComboBox Name="cb_category" HorizontalAlignment="Center" MinWidth="320"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Поставщик продукта" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                        <ComboBox Name="cb_deployer" HorizontalAlignment="Center" MinWidth="320"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Производитель продукта" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                        <ComboBox Name="cb_manufacturer" HorizontalAlignment="Center" MinWidth="320"/>
+                    </StackPanel>
+                </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
+            <Button Name="btn_back" MinWidth="320" Height="42" Margin="8" Content="Назад" Style="{StaticResource main_button}" Click="btn_back_Click"/>
+            <Button Name="btn_add" MinWidth="320" Height="42" Margin="8" Content="Добавить" Style="{StaticResource main_button}" Click="btn_add_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Page>

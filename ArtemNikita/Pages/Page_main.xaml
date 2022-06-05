@@ -1,0 +1,102 @@
+﻿<Page x:Class="ArtemNikita.Pages.Page_main"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ArtemNikita.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_main" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#92d050">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions >
+
+            <!--Это разметка колон и у них не высота, а ширина-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="238"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="/Resources/logo.png" Height="45" Width="45" Grid.Column="0" Grid.Row="0" Margin="5"/>
+
+            <!-- columnspan это то сколько колон может заполнять объект-->
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="8" Name="tb_fullname" Grid.ColumnSpan="2" Style="{StaticResource add_text_block}"/>
+
+            <StackPanel Grid.Row="0" Grid.Column="1" Margin="8">
+                <TextBlock Text="Поиск" Style="{StaticResource add_text_block}"/>
+                <!--При изменении текста происходит поиск благодаря TextChanged-->
+                <TextBox Name="tb_search" MaxLength="32" TextChanged="tb_search_TextChanged"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Grid.Column="2" Margin="8">
+                <TextBlock Text="Фильтр" Style="{StaticResource add_text_block}"/>
+                <StackPanel Orientation="Horizontal">
+                    <!--При изменении выбраного элемента происходит фильтрация благодаря SelectionChanged-->
+                    <ComboBox Name="lb_category" SelectionChanged="lb_category_SelectionChanged"/>
+                </StackPanel>
+            </StackPanel>
+
+              <!--Visibility это видимость объекта-->
+            <TextBlock Name="tb_filter_count" Visibility="Hidden" Text="35 из 32" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1" Style="{StaticResource add_text_block}"/>
+
+            <!--Content это надпись на кнопке-->
+            <Button Name="btn_add_posuda" Visibility="Hidden" Content="+" Grid.Column="4" Margin="8" Style="{StaticResource add_button}" Grid.Row="0" Click="btn_add_posuda_Click"/>
+        </Grid>
+        <!--MouseLeftButtonUp при нажатии на элемент списка будет совершаться действие
+        "Шаблон" элемента списка создаёться с помощью ListView.ItemTemplate
+        Данные заполняютиься с помощью DataTemplate,
+        В нём храняться элементы, которые могут принимать значения и их отображать-->
+        <ListView Name="lv_posuda" Grid.Row="1" MouseLeftButtonUp="lv_posuda_MouseLeftButtonDown">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!--Border это элемент который являеться красивой подложкой для сетки, можно его пропустить и прописать сразу Grid
+                    BorderThikness это ширина границы,
+                    CornerRadius это скругление углов,
+                    BorderBrush это цвет границы,
+                    Height высота-->
+                    <Border CornerRadius="15" BorderThickness="1" BorderBrush="#92d050" Margin="2" Height="70">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="110"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Самое сложное это картинка, можно пропустить, но если всё запомнить, то должно аукаться, ибо вид элемента прописан
+                            Картинка внутри себя содержит Source, который принимает значения из БД,
+                            но если значение == null то картинка становиться картинкой
+                            которая picture.png-->
+                            <Image Grid.Column="0" Margin="5">
+                                <Image.Source>
+                                    <Binding Path="ProductPhoto">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>pack://application:,,,/Resources/picture.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                            <StackPanel Margin="5" Grid.Column="1">
+                                <!--Здесь используеться Binding в таком формате, здесь текст принимает значение, 
+                                полученное из БД-->
+                                <TextBlock Text="{Binding Path = ProductName}" Style="{StaticResource main_text_block}"/>
+                                <TextBlock Text="{Binding Path = ProductDescription}" Style="{StaticResource main_text_block}"/>
+                                <TextBlock Text="{Binding Path = ProductManufacturer}" Style="{StaticResource main_text_block}"/>
+                                <TextBlock Text="{Binding Path = ProductCoast}" Style="{StaticResource main_text_block}"/>
+                            </StackPanel>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Text="{Binding Path = ProductQuantityInStock}" Style="{StaticResource main_text_block}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

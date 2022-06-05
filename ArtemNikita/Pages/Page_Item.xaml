@@ -1,0 +1,73 @@
+﻿<Page x:Class="ArtemNikita.Pages.Page_Item"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ArtemNikita.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_Item" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+        <!--ScrollViewer это пространство на котором может находиться полоса прокрутки объекта
+        VerticalScrollBarVisibility это его видемость, Auto - значит, что если элемент не умещаеться то будет виден ползунок-->
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <!--IsHitTestVisible "Кликабельность" ListView VerticalScrollBarVisibility
+            это отображение поосы прокрутки-->
+            <!--Здесь тоже самое, что и в Page_main-->
+            <ListView Name="lv_mainPosuda" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#92d050">
+            <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Margin="15">
+                                <Image.Source>
+                                    <Binding Path="ProductPhoto">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>pack://application:,,,/Resources/picture.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                            <StackPanel Grid.Column="1" Margin="10">
+                                <StackPanel>
+                                    <TextBlock Text="Название продукта" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                    <TextBlock Text="{Binding Path = ProductName}" HorizontalAlignment="Center" Style="{StaticResource add_text_block}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Артикул" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                    <TextBlock Text="{Binding Path = ProductArticleNumber}" HorizontalAlignment="Center" Style="{StaticResource add_text_block}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Описание продукта" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                    <TextBlock Text="{Binding Path = ProductDescription}" HorizontalAlignment="Center" Style="{StaticResource add_text_block}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Цена" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                    <TextBlock Text="{Binding Path = ProductCost}" HorizontalAlignment="Center" Style="{StaticResource add_text_block}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Количество на складе" FontWeight="SemiBold" Style="{StaticResource add_text_block}"/>
+                                    <TextBlock Text="{Binding Path = ProductQuantityInStock}" HorizontalAlignment="Center" Style="{StaticResource add_text_block}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
+            <Button Name="btn_back" MinWidth="320" Height="42" Margin="8" Content="Назад" Style="{StaticResource main_button}" Click="btn_back_Click"/>
+            <Button Name="btn_delete" Visibility="Hidden" MinWidth="320" Height="42" Margin="8" Content="Удалить" Style="{StaticResource main_button}" Click="btn_delete_Click"/>
+        </StackPanel>
+        
+    </Grid>
+</Page>
