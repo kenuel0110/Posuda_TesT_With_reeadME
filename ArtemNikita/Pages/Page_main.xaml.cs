@@ -122,7 +122,7 @@ namespace ArtemNikita.Pages
                     //информацию о филтре делаем видимой
                     tb_filter_count.Visibility = Visibility.Visible;
                     //отображаем количество найденного их колическтва всех элементов
-                    tb_filter_count.Text = $"{this.select_list.ToList().Count} из {this.posuda_list.Count}";
+                    tb_filter_count.Text = $"{this.select_list.Count} из {this.posuda_list.Count}";
                     //заполняем listview
                     lv_posuda.ItemsSource = this.posuda_list.FindAll(x => x.ProductManufacturer == filter);
                 }
@@ -134,7 +134,7 @@ namespace ArtemNikita.Pages
                     //информацию о филтре делаем видимой
                     tb_filter_count.Visibility = Visibility.Visible;
                     //отображаем количество найденного их колическтва всех элементов
-                    tb_filter_count.Text = $"{this.select_list.ToList().Count} из {this.posuda_list.Count}";
+                    tb_filter_count.Text = $"{this.select_list.Count} из {this.posuda_list.Count}";
                     //заполняем listview
                     lv_posuda.ItemsSource = this.posuda_list.Where(x => x.ProductName.ToLower().Contains(filter.ToLower()));
                 }
