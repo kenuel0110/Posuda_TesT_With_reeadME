@@ -27,6 +27,8 @@ namespace ArtemNikita.Pages
         //Здесь исапользуеться класс, который мы писали сами, он храниться в Classes.Item_Product
         //Он содержит перемнные, которые мы будем отображать
         List<Classes.Item_Posuda> posuda_list = new List<Classes.Item_Posuda>();
+        //Список для получения списка для удаления
+        List<Classes.Item_Posuda> select_list = new List<Classes.Item_Posuda>();
         //переменнвя роли
         string role ="";
 
@@ -68,6 +70,8 @@ namespace ArtemNikita.Pages
             {
                 //очищаем список, который будем заполнять
                 this.posuda_list.Clear();
+                //очищаем список, который будем заполнять
+                this.select_list.Clear();
                 //пока элемени в списке
                 foreach (var item in this.posuda_DB)
                 {
@@ -106,40 +110,33 @@ namespace ArtemNikita.Pages
                 if (filter == null && _object == null)
                 {
                     lv_posuda.ItemsSource = this.posuda_list;
+                    this.select_list = this.posuda_list;
                     //информацию о фильтрации скрываем
                     tb_filter_count.Visibility = Visibility.Hidden;
                 }
                 //Если есть какой-то фильтр и объект аыпадающий список
                 else if (filter != null && _object == "combobox")
                 {
-                    //делаем сортировку с помощью FindAll где x производитель равен фильтру
-                    var sort_list = this.posuda_list.FindAll(x => x.ProductManufacturer == filter);
+                    //сортируем благодаря where гле переводим данные в нижний регистр и в нём есть то что мы написали
+                    this.select_list = this.posuda_list.FindAll(x => x.ProductManufacturer == filter);
                     //информацию о филтре делаем видимой
                     tb_filter_count.Visibility = Visibility.Visible;
                     //отображаем количество найденного их колическтва всех элементов
-                    tb_filter_count.Text = $"{sort_list.Count} из {this.posuda_list.Count}";
-                    //очищаем список
-                    this.posuda_list.Clear();
-                    // и заполняем его отсортированным списком
-                    this.posuda_list = sort_list.ToList();
+                    tb_filter_count.Text = $"{this.select_list.ToList().Count} из {this.posuda_list.Count}";
                     //заполняем listview
-                    lv_posuda.ItemsSource = this.posuda_list;
+                    lv_posuda.ItemsSource = this.posuda_list.FindAll(x => x.ProductManufacturer == filter);
                 }
                 //если есть фильтр и фильтруем по поиску
                 else if (filter != null && _object == "search")
                 {
                     //сортируем благодаря where гле переводим данные в нижний регистр и в нём есть то что мы написали
-                    var sort_list = this.posuda_list.Where(x => x.ProductName.ToLower().Contains(filter.ToLower()));
+                    this.select_list = this.posuda_list.Where(x => x.ProductName.ToLower().Contains(filter.ToLower()));
                     //информацию о филтре делаем видимой
                     tb_filter_count.Visibility = Visibility.Visible;
                     //отображаем количество найденного их колическтва всех элементов
-                    tb_filter_count.Text = $"{sort_list.ToList().Count} из {this.posuda_list.Count}";
-                    //очищаем список
-                    this.posuda_list.Clear();
-                    // и заполняем его отсортированным списком
-                    this.posuda_list = sort_list.ToList();
+                    tb_filter_count.Text = $"{this.select_list.ToList().Count} из {this.posuda_list.Count}";
                     //заполняем listview
-                    lv_posuda.ItemsSource = this.posuda_list;
+                    lv_posuda.ItemsSource = this.posuda_list.Where(x => x.ProductName.ToLower().Contains(filter.ToLower()));
                 }
             }
             //если что-то сломалось во время этого получаем ошибку
@@ -179,7 +176,7 @@ namespace ArtemNikita.Pages
             if (lv_posuda.SelectedIndex != -1)
             {
                 //получаем объект, который мы выбрали (получить данные из списка - название_списка[порядковый номер элеменита].то что мы хотим получить)
-                string aricule_item = this.posuda_list[lv_posuda.SelectedIndex].ProductArticulNumber;
+                string aricule_item =  this.select_list[lv_posuda.SelectedIndex].ProductArticulNumber;
                 //запускаем страницу для отображения элемента, передаём имя, роль, и индивидуальный номер посуды
                 NavigationService.Navigate(new Pages.Page_Item(tb_fullname.Text, this.role, aricule_item));
             }
